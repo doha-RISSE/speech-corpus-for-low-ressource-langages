@@ -14,7 +14,7 @@ verbalizer = build_date_verbalizer(cardinal, CONFIG)
 fst = tagger @ verbalizer
 
 # test
-text = "01/01/2024"
+text = "01/07/2024"
 
 results = generate_all(text, fst)
 
