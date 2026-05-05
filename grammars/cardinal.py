@@ -1,6 +1,7 @@
 import pynini
 from .base import GraphFst
 
+
 def nombre_vers_darija(n):
     """
     Convertit un entier en sa verbalisation en Darija marocaine (script arabe).
@@ -12,14 +13,19 @@ def nombre_vers_darija(n):
     if n == 0:
         return "صفر"
 
-    # Dictionnaires de base pour la Darija
+    # Dictionnaires de base
     unites = ["", "واحد", "جوج", "تلاتة", "ربعة", "خمسة", "ستة", "سبعة", "تمنية", "تسعود"]
     dizaines_10_19 = ["عشرة", "حداش", "طناش", "تلطاش", "ربعطاش", "خمستاش", "سطاش", "سبعطاش", "تمنطاش", "تسعطاش"]
     dizaines = ["", "عشرة", "عشرين", "تلاتين", "ربعين", "خمسين", "ستين", "سبعين", "تمنين", "تسعين"]
-
-    # En Darija, les centaines sont souvent fusionnées ou écrites séparément.
-    # Ex: تلت مية (300). On les code en dur pour plus de fluidité.
+    
+    # Centaines fusionnées
     centaines = ["", "مية", "ميتين", "تلت مية", "ربع مية", "خمس مية", "ست مية", "سبع مية", "تمن مية", "تسع مية"]
+
+    # NOUVEAU : Milliers fusionnés (de 3000 à 10000)
+    milliers_fuses = {
+        3: "تلتالاف", 4: "ربعالاف", 5: "خمسالاف", 6: "ستالاف", 
+        7: "سبعالاف", 8: "تمنالاف", 9: "تسعالاف", 10: "عشرالاف"
+    }
 
     def traiter_dizaines(num):
         if num < 10:
@@ -32,8 +38,9 @@ def nombre_vers_darija(n):
             if unite == 0:
                 return dizaines[dizaine]
             else:
-                # Règle : Unité + " و " + Dizaine (ex: 21 -> واحد و عشرين)
-                return unites[unite] + " و " + dizaines[dizaine]
+                # CORRECTION : Remplacer "جوج" par "تنين" dans les nombres composés
+                nom_unite = "تنين" if unite == 2 else unites[unite]
+                return nom_unite + " و " + dizaines[dizaine]
 
     def traiter_centaines(num):
         if num < 100:
@@ -60,17 +67,15 @@ def nombre_vers_darija(n):
     elif millier == 2:
         str_millier = "الفين"
     elif 3 <= millier <= 10:
-        # Pour 3000 à 10000, on utilise le pluriel "آلاف" (ex: تلت آلاف)
-        str_millier = traiter_dizaines(millier) + " آلاف"
+        # CORRECTION : Utilisation du dictionnaire des milliers fusionnés
+        str_millier = milliers_fuses[millier]
     else:
-        # Au-delà de 10000, on utilise le singulier "الف" (ex: خمسين الف)
         str_millier = traiter_centaines(millier) + " الف"
 
     if reste == 0:
         return str_millier.strip()
     else:
         return (str_millier + " و " + traiter_centaines(reste)).strip()
-
 
 
 class CardinalFst(GraphFst):
