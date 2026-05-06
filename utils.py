@@ -13,7 +13,10 @@ def generate_all(text, fst):
     results = []
 
     while not paths.done():
-        results.append(paths.ostring())
+        s = paths.ostring()
+        # pynini retourne str encodée en Latin-1 → décoder correctement
+        s = s.encode('latin-1').decode('utf-8')
+        results.append(s)
         paths.next()
 
     return list(set(results))

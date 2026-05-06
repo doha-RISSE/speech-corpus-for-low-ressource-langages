@@ -11,6 +11,10 @@ RUN apt-get update && apt-get install -y \
 
 COPY . .
 
-RUN pip install --no-cache-dir pynini
+RUN pip install --no-cache-dir pynini flask
 
-CMD ["python", "pipeline.py"]
+# Exposer le port
+EXPOSE 5000
+
+# Lancer l'API au lieu de pipeline.py
+CMD ["python", "api.py"]
