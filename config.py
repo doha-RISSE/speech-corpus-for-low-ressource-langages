@@ -32,7 +32,8 @@ CONFIG = {
 
         # Particules optionnelles avant la date verbalisée
         # "" = sans préfixe  |  "ف " ≈ "في"  |  "نهار " ≈ "يوم"
-        "prefixes": ["", "ف ", "نهار "],
+        #"prefixes": ["", "ف ", "نهار "],
+        "prefixes": [""],
 
         "day_modes":   ["cardinal"],          # ex: ["cardinal", "number_raw"]
         "month_modes": ["cardinal", "name","name_fr"],  # ex: ["cardinal", "name", "number_raw"]
