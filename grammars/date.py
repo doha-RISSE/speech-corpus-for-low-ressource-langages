@@ -29,6 +29,13 @@ class DateFst(GraphFst):
             month_graphs.append(
                 pynutil.insert(" ") + month_names
             )
+        if "name_fr" in config["month_modes"]:
+            month_names_fr = pynini.string_map(
+                list(config["months_fr"].items())
+            )
+            month_graphs.append(
+                pynutil.insert(" ") + month_names_fr
+            )
 
         month = pynini.union(*month_graphs)
 
