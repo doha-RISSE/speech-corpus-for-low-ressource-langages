@@ -89,6 +89,19 @@ CONFIG = {
             "دولار": "دولار",
         },
     },
+    "phone": {
+    # Les préfixes valides (05, 06, 07)
+    "valid_prefixes": ["05", "06", "07"],
+    },
+
+    "percent": {
+        # Mot à ajouter après le nombre verbalisé
+        "suffix_word": "فالمية",
+    },
+    "time": {
+    "modes": ["idiomatic", "literal"],  # les deux → deux candidats générés
+    },
+
 
     # -------------------------------------------------------------------------
     #  CLASSES FUTURES — décommenter quand la grammaire sera prête

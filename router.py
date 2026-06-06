@@ -1,7 +1,9 @@
 from grammars.date_tag import build_date_tagger
 from grammars.date_verbalize import build_date_verbalizer
 from grammars.money import MoneyFst
-
+from grammars.phone import PhoneFst      # ← ajouter
+from grammars.percent import PercentFst  # ← ajouter
+from grammars.time import TimeFst   # ← ajouter en haut
 
 def process_entity(entity: dict, cardinal_fst, config: dict) -> dict:
 
@@ -14,6 +16,16 @@ def process_entity(entity: dict, cardinal_fst, config: dict) -> dict:
         # money.py appelle generate_all() qui a besoin du FST
         fst     = cardinal_fst.build_fst_for_date()
         results = MoneyFst(fst, config).verbalize(entity["value"])
+        return {"mode": "list", "results": results}
+    elif entity["type"] == "phone":          # ← ajouter
+        results = PhoneFst(config).verbalize(entity["value"])
+        return {"mode": "list", "results": results}
+
+    elif entity["type"] == "percent":        # ← ajouter
+        results = PercentFst(config).verbalize(entity["value"])
+        return {"mode": "list", "results": results}
+    elif entity["type"] == "time":
+        results = TimeFst(config).verbalize(entity["value"])
         return {"mode": "list", "results": results}
 
     else:

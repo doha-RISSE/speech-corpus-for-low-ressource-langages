@@ -33,6 +33,15 @@ def _build_patterns() -> dict:
     # Date : pattern fixe JJ/MM/AAAA
     if "date" in CONFIG:
         patterns["date"] = r"\b\d{1,2}/\d{1,2}/\d{4}\b"
+    # Numéro de téléphone marocain : 06/07/05 + 8 chiffres
+    if "phone" in CONFIG:
+        patterns["phone"] = r"\b0[5-7]\d{8}\b"
+
+    # Pourcentage : nombre suivi de %
+    if "percent" in CONFIG:
+        patterns["percent"] = r"\b\d+(?:[.,]\d+)?\s*%"
+    if "time" in CONFIG:
+        patterns["time"] = r"\b([0-2]?[0-9])[:hH]([0-5][0-9])\b"
 
     # --- Classes futures : ajouter leur pattern ici ---
     # if "time" in CONFIG:
